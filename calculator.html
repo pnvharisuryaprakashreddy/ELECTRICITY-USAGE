@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELECTRICITY USAGE CALCULATOR</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .total {
+      background-color: #eee;
+      font-weight: bold;
+    }
+    h1 {
+      border: 4px solid rgb(2, 8, 6);
+      margin-left: 30%;
+      margin-right: 30%;
+      color: rgb(1, 10, 19);
+    }
+    
+    * {
+      background-image: url("https://miro.medium.com/v2/resize:fit:1400/1*nyU2IcNL3TVxZ_GPkkmt2g.png");
+    } 
+  </style>
+</head>
+<body>
+  <div class="hari">
+  <h1  style="text-align:center;">ELECTRICITY USAGE CALCULATOR</h1>
+
+  <form id="electricityUsageForm">
+    <table>
+      <tr>
+        <th>Appliance:</th>
+        <th>kW:</th>
+        <th>Hours/Day:</th>
+        <th>Cost/kWh:</th>
+        <th>Electricity Usage (Rupees):</th>
+      </tr>
+      <tr>
+        <td><input type="text" id="applianceName" placeholder="Enter appliance name"></td>
+        <td><input type="number" id="kw" min="0" step="0.01"></td>
+        <td><input type="number" id="hoursPerDay" min="0" step="0.1"></td>
+        <td><input type="number" id="costPerKWh" min="0" step="0.01"></td>
+        <td><span id="electricityUsage"></span></td>
+      </tr>
+    </table>
+
+    <button type="button" onclick="calculateElectricityUsage()">Calculate</button>
+  </form>
+</div>
+
+  <table id="applianceTable">
+    <tbody></tbody>
+  </table>
+
+
+  <script>
+    function calculateElectricityUsage() {
+      const applianceName = document.getElementById("applianceName").value;
+      const kw = parseFloat(document.getElementById("kw").value);
+      const hoursPerDay = parseFloat(document.getElementById("hoursPerDay").value);
+      const costPerKWh = parseFloat(document.getElementById("costPerKWh").value);
+
+      const electricityUsage = kw * hoursPerDay * costPerKWh;
+      document.getElementById("electricityUsage").textContent = electricityUsage.toFixed(2) + " rupees";
+
+      const applianceRow = document.createElement("tr");
+      const applianceCell = document.createElement("td");
+      applianceCell.textContent = applianceName;
+      applianceRow.appendChild(applianceCell);
+
+      const kwCell = document.createElement("td");
+      kwCell.textContent = kw;
+      applianceRow.appendChild(kwCell);
+
+      const hoursPerDayCell = document.createElement("td");
+      hoursPerDayCell.textContent = hoursPerDay;
+      applianceRow.appendChild(hoursPerDayCell);
+
+      const costPerKWhCell = document.createElement("td");
+      costPerKWhCell.textContent = costPerKWh;
+      applianceRow.appendChild(costPerKWhCell);
+
+      const electricityUsageCell = document.createElement("td");
+      electricityUsageCell.textContent = electricityUsage.toFixed(2) + " rupees";
+      applianceRow.appendChild(electricityUsageCell);
+
+      document.getElementById("applianceTable").querySelector("tbody").appendChild(applianceRow);
+
+      document.getElementById("electricityUsageForm").reset();
+    }
+  </script>
+</body>
+</html>
